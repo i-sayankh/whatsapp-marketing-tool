@@ -1,3 +1,4 @@
+import './App.css';
 import React, { useState } from 'react';
 import CampaignForm from './components/CampaignForm';
 import CampaignStatus from './components/CampaignStatus';
