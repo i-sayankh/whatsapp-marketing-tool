@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getCampaignStatus, sendMessages } from '../services/campaignService';
+import { Container, Card, Button, Row, Col } from 'react-bootstrap';
 
 const CampaignStatus = ({ campaignId }) => {
     const [status, setStatus] = useState({ sent: 0, pending: 0 });
@@ -16,7 +17,7 @@ const CampaignStatus = ({ campaignId }) => {
     const handleSendMessages = async () => {
         try {
             await sendMessages(campaignId);
-            fetchStatus(); // Refresh status after sending messages
+            fetchStatus();
         } catch (error) {
             console.error("Error sending messages", error);
         }
@@ -27,12 +28,22 @@ const CampaignStatus = ({ campaignId }) => {
     }, []);
 
     return (
-        <div>
-            <h2>Campaign Status</h2>
-            <p>Messages Sent: {status.sent}</p>
-            <p>Messages Pending: {status.pending}</p>
-            <button onClick={handleSendMessages}>Send Messages</button>
-        </div>
+        <Container className="mt-5">
+            <Row className="justify-content-center">
+                <Col md={6}>
+                    <Card className="p-4 shadow-sm">
+                        <Card.Body>
+                            <h2 className="text-center mb-4">Campaign Status</h2>
+                            <p><strong>Messages Sent:</strong> {status.sent}</p>
+                            <p><strong>Messages Pending:</strong> {status.pending}</p>
+                            <Button variant="success" onClick={handleSendMessages} className="w-100">
+                                Send Messages
+                            </Button>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
     );
 };
 
